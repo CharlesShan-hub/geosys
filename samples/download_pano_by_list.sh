@@ -1,4 +1,56 @@
+#!/bin/bash
+
+# Set the PYTHONPATH to include the current directory
 export PYTHONPATH=.:$PYTHONPATH
+
+# Define the base directory for the samples and scripts
+# BASE_DIR="/path/to/geosys/directory" # Replace with the actual base directory
+BASE_DIR=$(pwd)
+
+# Define the location name as a variable
+LOCATION_NAME="XinjiangTaZhiXiLu"
+
+# Define the output directory for the panorama data
+# OUTPUT_DIR="$BASE_DIR/samples/data/$LOCATION_NAME"
+OUTPUT_DIR="$BASE_DIR/../data/$LOCATION_NAME"
+
+# Create the output directory if it does not exist
+mkdir -p "$OUTPUT_DIR/cache"
+mkdir -p "$OUTPUT_DIR/tmp"
+mkdir -p "$OUTPUT_DIR/pano"
+
+# Run the grab_line_pano_info.py script and store the output
+echo "Gathering panorama information..."
+python "$BASE_DIR/scripts/grab_line_pano_info.py" 02015800001407191122520306A -o "$OUTPUT_DIR" || {
+    echo "Error: grab_line_pano_info.py failed."
+    exit 1
+}
+
+# Check if the pids.txt file exists before proceeding
+PID_FILE="$OUTPUT_DIR/tmp/pids.txt"
+if [ ! -f "$PID_FILE" ]; then
+    echo "Error: $PID_FILE not found."
+    exit 1
+fi
+
+# Download the panoramas using the download_map_pano.py script
+echo "Downloading panoramas..."
+while IFS= read -r pid; do
+    python "$BASE_DIR/scripts/download_map_pano.py" -t bmap "$pid" -o "$OUTPUT_DIR/pano" || {
+        echo "Error: download_map_pano.py failed for PID $pid."
+    }
+done < "$PID_FILE"
+
+echo "🍺Panorama download complete."
+
+
+
+# export PYTHONPATH=.:$PYTHONPATH
+# # 柏油路大路 新疆 巴音郭楞蒙古自治州 塔指西路 XinjiangTaZhiXiLu
+# ./scripts/grab_line_pano_info.py 02015800001407191122520306A -o samples/data/XinjiangTaZhiXiLu
+# cat ./samples/data/XinjiangTaZhiXiLu/tmp/pids.txt | xargs -I {} ./scripts/download_map_pano.py -t bmap {} -o samples/data/XinjiangTaZhiXiLu/pano
+
+
 # ./scripts/grab_line_pano_info.py 09002200121902171548254582G -o samples/data/test
 # 路中间
 # ./scripts/grab_line_pano_info.py 09002200121902031112297132L -o samples/data/test
@@ -10,9 +62,9 @@ export PYTHONPATH=.:$PYTHONPATH
 # 柏油路大路 北京 西四环北路 BeijingXiSiHuanBeiLu
 # ./scripts/grab_line_pano_info.py 09002200001504160309468516P -o samples/data/BeijingXiSiHuanBeiLu
 # cat ./samples/data/BeijingXiSiHuanBeiLu/tmp/pids.txt | xargs -I {} ./scripts/download_map_pano.py -t bmap {} -o samples/data/BeijingXiSiHuanBeiLu/pano
-# 柏油路大路 新疆 巴音郭楞蒙古自治州 塔指西路 XinjiangTaZhiXiLu
-./scripts/grab_line_pano_info.py 02015800001407191122520306A -o samples/data/XinjiangTaZhiXiLu
-cat ./samples/data/XinjiangTaZhiXiLu/tmp/pids.txt | xargs -I {} ./scripts/download_map_pano.py -t bmap {} -o samples/data/XinjiangTaZhiXiLu/pano
+# # 柏油路大路 新疆 巴音郭楞蒙古自治州 塔指西路 XinjiangTaZhiXiLu
+# ./scripts/grab_line_pano_info.py 02015800001407191122520306A -o samples/data/XinjiangTaZhiXiLu
+# cat ./samples/data/XinjiangTaZhiXiLu/tmp/pids.txt | xargs -I {} ./scripts/download_map_pano.py -t bmap {} -o samples/data/XinjiangTaZhiXiLu/pano
 # # 柏油路大路 青海 格尔木市 盐桥南路 QinghaiYanQiaoNanLu
 # ./scripts/grab_line_pano_info.py 01014400001406040759561596B -o samples/data/QinghaiYanQiaoNanLu
 # cat ./samples/data/QinghaiYanQiaoNanLu/tmp/pids.txt | xargs -I {} ./scripts/download_map_pano.py -t bmap {} -o samples/data/QinghaiYanQiaoNanLu/pano
