@@ -1,0 +1,158 @@
+{
+    "content": [
+        {
+            "Admission": "GS(2015)388",
+            "Date": "20140719",
+            "DeviceHeight": 2.8,
+            "FileTag": "pano_cfg",
+            "HasDepth": 0,
+            "HasTopo": 0,
+            "Heading": 228,
+            "ID": "02015800001407191122553506A",
+            "ImgLayer": [
+                {
+                    "BlockX": 2,
+                    "BlockY": 1,
+                    "ImgFormat": "jpg",
+                    "ImgLevel": 1
+                },
+                {
+                    "BlockX": 4,
+                    "BlockY": 2,
+                    "ImgFormat": "jpg",
+                    "ImgLevel": 2
+                },
+                {
+                    "BlockX": 8,
+                    "BlockY": 4,
+                    "ImgFormat": "jpg",
+                    "ImgLevel": 3
+                },
+                {
+                    "BlockX": 16,
+                    "BlockY": 8,
+                    "ImgFormat": "jpg",
+                    "ImgLevel": 4
+                }
+            ],
+            "LayerCount": 4,
+            "Links": [],
+            "Mode": "day",
+            "MoveDir": 137.998,
+            "NorthDir": 42,
+            "Obsolete": 1,
+            "Pitch": -1.78832,
+            "Provider": 2,
+            "RX": 959159192,
+            "RY": 509605232,
+            "Rname": "石化大道",
+            "Roads": [
+                {
+                    "ID": "d3e2d4-ff3a-1285-0116-7643c7",
+                    "IsCurrent": 1,
+                    "Name": "石化大道",
+                    "Panos": [
+                        {
+                            "DIR": 137,
+                            "Order": 0,
+                            "PID": "02015800001407191122504806A",
+                            "Type": "street",
+                            "X": 959156274,
+                            "Y": 509606730
+                        },
+                        {
+                            "DIR": 137,
+                            "Order": 1,
+                            "PID": "02015800001407191122520306A",
+                            "Type": "street",
+                            "X": 959156975,
+                            "Y": 509605988
+                        },
+                        {
+                            "DIR": 137,
+                            "Order": 2,
+                            "PID": "02015800001407191122537006A",
+                            "Type": "street",
+                            "X": 959157692,
+                            "Y": 509605240
+                        },
+                        {
+                            "DIR": 137,
+                            "Order": 3,
+                            "PID": "02015800001407191122553506A",
+                            "Type": "street",
+                            "X": 959158402,
+                            "Y": 509604498
+                        },
+                        {
+                            "DIR": 137,
+                            "Order": 4,
+                            "PID": "02015800001407191122573206A",
+                            "Type": "street",
+                            "X": 959159099,
+                            "Y": 509603753
+                        },
+                        {
+                            "DIR": 137,
+                            "Order": 5,
+                            "PID": "02015800001407191122597206A",
+                            "Type": "street",
+                            "X": 959159797,
+                            "Y": 509603013
+                        },
+                        {
+                            "DIR": 137,
+                            "Order": 6,
+                            "PID": "02015800001407191123035406A",
+                            "Type": "street",
+                            "X": 959160489,
+                            "Y": 509602276
+                        },
+                        {
+                            "DIR": 0,
+                            "Order": 7,
+                            "PID": "02015800001407191123100206A",
+                            "Type": "street",
+                            "X": 959161202,
+                            "Y": 509601541
+                        }
+                    ],
+                    "Width": 1300
+                }
+            ],
+            "Roll": 0.489,
+            "SwitchID": [],
+            "Time": "201407",
+            "TimeLine": [
+                {
+                    "ID": "09015800011604302040313458I",
+                    "IsCurrent": 0,
+                    "Time": "day",
+                    "TimeDir": "uptodate",
+                    "TimeLine": "201604",
+                    "Year": "2016"
+                },
+                {
+                    "ID": "02015800001407191122553506A",
+                    "IsCurrent": 1,
+                    "Time": "day",
+                    "TimeDir": "",
+                    "TimeLine": "201407",
+                    "Year": "2014"
+                }
+            ],
+            "Type": "street",
+            "UserID": "",
+            "Version": "0",
+            "X": 959158403,
+            "Y": 509604498,
+            "Z": 877.599,
+            "format_v": "0",
+            "plane": "",
+            "procdate": "20211116"
+        }
+    ],
+    "result": {
+        "error": 0
+    }
+}

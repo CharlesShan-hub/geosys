@@ -1,0 +1,159 @@
+{
+    "content": [
+        {
+            "Admission": "GS(2015)388",
+            "Date": "20140719",
+            "DeviceHeight": 2.8,
+            "FileTag": "pano_cfg",
+            "HasDepth": 0,
+            "HasTopo": 0,
+            "Heading": 227.32,
+            "ID": "02015800001407191124364506A",
+            "ImgLayer": [
+                {
+                    "BlockX": 2,
+                    "BlockY": 1,
+                    "ImgFormat": "jpg",
+                    "ImgLevel": 1
+                },
+                {
+                    "BlockX": 4,
+                    "BlockY": 2,
+                    "ImgFormat": "jpg",
+                    "ImgLevel": 2
+                },
+                {
+                    "BlockX": 8,
+                    "BlockY": 4,
+                    "ImgFormat": "jpg",
+                    "ImgLevel": 3
+                },
+                {
+                    "BlockX": 16,
+                    "BlockY": 8,
+                    "ImgFormat": "jpg",
+                    "ImgLevel": 4
+                }
+            ],
+            "LayerCount": 4,
+            "Links": [
+                {
+                    "CPointX": 959161240,
+                    "CPointY": 509601501,
+                    "DIR": 317,
+                    "PID": "02015800001407191123100206A",
+                    "RID": "d3e2d4-ff3a-1285-0116-7643c7",
+                    "Type": "street",
+                    "X": 959161202,
+                    "Y": 509601541
+                }
+            ],
+            "Mode": "day",
+            "MoveDir": 137.322,
+            "NorthDir": 42.68,
+            "Obsolete": 1,
+            "Pitch": -0.899279,
+            "Provider": 2,
+            "RX": 959162676,
+            "RY": 509601484,
+            "Rname": "石化大道",
+            "Roads": [
+                {
+                    "ID": "d3da24-0803-a5bc-5cbd-4842c7",
+                    "IsCurrent": 1,
+                    "Name": "石化大道",
+                    "Panos": [
+                        {
+                            "DIR": 137,
+                            "Order": 0,
+                            "PID": "02015800001407191124364506A",
+                            "Type": "street",
+                            "X": 959161902,
+                            "Y": 509600765
+                        },
+                        {
+                            "DIR": 137,
+                            "Order": 1,
+                            "PID": "02015800001407191124407806A",
+                            "Type": "street",
+                            "X": 959162619,
+                            "Y": 509599999
+                        },
+                        {
+                            "DIR": 137,
+                            "Order": 2,
+                            "PID": "02015800001407191124432706A",
+                            "Type": "street",
+                            "X": 959163347,
+                            "Y": 509599225
+                        },
+                        {
+                            "DIR": 137,
+                            "Order": 3,
+                            "PID": "02015800001407191124452106A",
+                            "Type": "street",
+                            "X": 959164052,
+                            "Y": 509598471
+                        },
+                        {
+                            "DIR": 137,
+                            "Order": 4,
+                            "PID": "02015800001407191124470606A",
+                            "Type": "street",
+                            "X": 959164777,
+                            "Y": 509597703
+                        },
+                        {
+                            "DIR": 0,
+                            "Order": 5,
+                            "PID": "02015800001407191124485306A",
+                            "Type": "street",
+                            "X": 959165491,
+                            "Y": 509596943
+                        }
+                    ],
+                    "Width": 1300
+                },
+                {
+                    "ID": "d3e2d4-ff3a-1285-0116-7643c7",
+                    "IsCurrent": 0,
+                    "Name": "石化大道",
+                    "Width": 1300
+                }
+            ],
+            "Roll": 0.772,
+            "SwitchID": [],
+            "Time": "201407",
+            "TimeLine": [
+                {
+                    "ID": "09015800011604302040403538I",
+                    "IsCurrent": 0,
+                    "Time": "day",
+                    "TimeDir": "uptodate",
+                    "TimeLine": "201604",
+                    "Year": "2016"
+                },
+                {
+                    "ID": "02015800001407191124364506A",
+                    "IsCurrent": 1,
+                    "Time": "day",
+                    "TimeDir": "",
+                    "TimeLine": "201407",
+                    "Year": "2014"
+                }
+            ],
+            "Type": "street",
+            "UserID": "",
+            "Version": "0",
+            "X": 959161902,
+            "Y": 509600765,
+            "Z": 877.729,
+            "format_v": "0",
+            "plane": "",
+            "procdate": "20211116"
+        }
+    ],
+    "result": {
+        "error": 0
+    }
+}

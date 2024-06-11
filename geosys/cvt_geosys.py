@@ -4,7 +4,7 @@ import math as M
 from Polygon import Polygon
 from geopy.distance import geodesic
 from scipy.optimize import leastsq
-from ._cvt_geosys import ffi, lib
+# from ._cvt_geosys import ffi, lib
 
 cur_d = Path(__file__).parent
 
