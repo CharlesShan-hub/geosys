@@ -8,12 +8,12 @@ export PYTHONPATH=.:$PYTHONPATH
 BASE_DIR=$(pwd)
 
 # Config
-# OUTPUT_DIR="$BASE_DIR/samples/data/$LOCATION_NAME"
-OUTPUT_DIR="$BASE_DIR/../data/$LOCATION_NAME"
 EXPAND_LEVEL=2
 EXPAND_DIS=200
 LOCATION_NAME="XinjiangTaZhiXiLu"
 PID=02015800001407191122520306A
+OUTPUT_DIR="$BASE_DIR/samples/data/$LOCATION_NAME" # Demo dictionary
+# OUTPUT_DIR="$BASE_DIR/../data/$LOCATION_NAME" # Change to your data dictionary
 
 # Create the output directory if it does not exist
 mkdir -p "$OUTPUT_DIR/cache"

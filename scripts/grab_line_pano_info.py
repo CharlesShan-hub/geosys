@@ -138,6 +138,7 @@ class BMapPanoGrabber():
         """
         data = self.load_json(pid)
         if data is None: return []
+        if hasattr(data[0],"Links") == False: return []
         road_data = data[0]["Links"]
         pids = []
         for node in road_data:
