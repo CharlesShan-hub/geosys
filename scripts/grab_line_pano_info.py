@@ -6,9 +6,10 @@ from geosys.utils import request_data
 import os
 import json
 import warnings
+from typing import Any, Optional, Tuple, List
 
 class BMapPanoGrabber():
-    def __init__(self, out, **kwargs):
+    def __init__(self, out: str, **kwargs: Any) -> None:
         """
         Initialize the BMapPanoGrabber instance.
 
@@ -33,7 +34,7 @@ class BMapPanoGrabber():
             os.mkdir(Path(self.out,"pano"))
             os.mkdir(Path(self.out,"tmp"))
 
-    def _url_json(self, pid):
+    def _url_json(self, pid: str) -> str:
         """
         Generate the URL for the JSON data of a panorama.
 
@@ -41,7 +42,7 @@ class BMapPanoGrabber():
         """
         return f"{self.base_url}{pid}"
 
-    def _local_json(self, pid):
+    def _local_json(self, pid: str) -> Path:
         """
         Generate the local path for the JSON data of a panorama.
 
@@ -49,7 +50,7 @@ class BMapPanoGrabber():
         """
         return Path(self.out,"cache",f"{pid}.json")
 
-    def _save_json(self, pid):
+    def _save_json(self, pid: str) -> bool:
         """
         Save the JSON data of a panorama to the local cache.
 
@@ -69,7 +70,7 @@ class BMapPanoGrabber():
             json.dump(data, file, ensure_ascii=False, indent=4)
         return True
 
-    def load_json(self, pid):
+    def load_json(self, pid: str) -> Optional[dict]:
         """
         Load the JSON data of a panorama from the local cache or the internet.
 
@@ -83,8 +84,23 @@ class BMapPanoGrabber():
         with open(out_path, 'r', encoding='utf-8') as file:
             data = json.load(file)
             return None if data["result"]["error"] == 404 else data["content"]
+            # return None if data["result"]["error"] != 0 else data["content"]
 
-    def get_road_pids(self, pid, save=False):
+    def get_position(self, pid: str) -> Optional[Tuple[int, int]]:
+        """
+        Get Position of a pano by inputting pid
+        Eg. (959157787, 509606743)
+        """
+        data = self.load_json(pid)
+        if data is None:
+            raise ValueError(f"Fail to Load json of:{pid}")
+        try:
+            return (data[0]["RX"],data[0]["RY"])
+        except:
+            warnings.warn(f"{pid} dose not have position information! (omitted)")
+            return None
+
+    def get_road_pids(self, pid: str, save: bool = False) -> List[str]:
         """
         Get the panorama IDs of the roads connected to a given panorama.
 
@@ -109,7 +125,7 @@ class BMapPanoGrabber():
                 self._save_json(pid)
         return pids
 
-    def get_link_pids(self, pid, save=False):
+    def get_link_pids(self, pid: str, save: bool = False) -> List[str]:
         """
         Get the panorama IDs linked to a given panorama.
 
@@ -131,18 +147,20 @@ class BMapPanoGrabber():
                 self._save_json(pid)
         return pids
 
-    def get_expend_pids(self, pid, level=1, save=False):
+    def get_expend_pids(self, pid: str, level: int = 1, dis: int = 0,
+        save: bool = False) -> List[str]:
         """
-        获取扩展 pids，采用 DFS 算法实现
+        Expand the panorama IDs using a depth-first search (DFS) algorithm.
+
+        * The default number of layers is 1, which results in a panoramic view of this street.
+        * level can be set from 1 to 5. A larger number of layers will eventually lead to an
+            uncontrollable number of panoramas.
+        * The distance defaults to 0, which means no filtering based on distance is performed.
+        * Distance is measured in meters.
         """
         # 限制级别的最大(小)值
         assert level >= 1
         assert level <= 5
-
-        # 加载全景ID对应的数据
-        data = self.load_json(pid)
-        if data is None:
-            return []
 
         # 初始化栈、已访问节点集合和结果列表
         stack = [(pid, level)]
@@ -169,9 +187,18 @@ class BMapPanoGrabber():
                     if link_pid not in visited:
                         stack.append((link_pid, current_level - 1))
 
-        return pids
+        # 对距离进行筛选
+        if dis == 0:
+            return pids
+        center = self.get_position(pid)
+        assert isinstance(center,tuple)
+        def is_within_distance(item):
+            point = self.get_position(item)
+            return False if not isinstance(point, tuple) else \
+                (point[0]-center[0])**2+(point[1]-center[1])**2 < (100*dis)**2
+        return list(filter(is_within_distance, pids))
 
-    def write_pids(self, pids):
+    def write_pids(self, pids: List[str]) -> None:
         """
         Write a list of unique panorama IDs to a file in the tmp directory.
         """
@@ -183,14 +210,12 @@ class BMapPanoGrabber():
 click.option = partial(click.option, show_default=True)
 @click.command()
 @click.argument("pid")
-@click.option('-o', '--out', default='')
-@click.option('-n', '--num', default=20)
-def main(pid, out, num):
+@click.option('-o', '--out', default='', help="output path")
+@click.option('-d', '--dis', default=0, help="distance filter")
+@click.option('-l', '--level', default=2, help="expand level")
+def main(pid, out, dis, level):
+    # 初始化下载器
     grabber = BMapPanoGrabber(out)
-
-    # 通过指定 PID 得到对应 json, 可确保本地保存备份
-    # print(grabber.load_json(pid) is None) # get dict
-    # print(grabber.load_json("12345") is None) # get None
 
     # 路中间: 得到某条道路的 PID，可以保存某条街道所有 pid 对应的 json
     # print(grabber.get_road_pids(pid))
@@ -199,23 +224,18 @@ def main(pid, out, num):
     # print(grabber.get_link_pids(pid))
 
     # 递归扩展 PID(别设置的太大，防止死循环)
-    pids = grabber.get_expend_pids(pid, level=2, save=True)
-    print(pids)
+    # pids = grabber.get_expend_pids(pid, level=2, save=True)
+    # print(pids)
+
+    # 递归扩展 PID(别设置的太大，防止死循环),设置距离200米
+    # pids = grabber.get_expend_pids(pid, level=5,dis=200, save=True)
+    # print(pids)
+
+    # 进行下载
+    pids = grabber.get_expend_pids(pid, level=level,dis=dis, save=True)
 
     # 写到文件里边
-    # grabber.write_pids(pids)
-
-    # 脚本案例
-    # export PYTHONPATH=.:$PYTHONPATH
-    # # ./scripts/grab_line_pano_info.py 09002200121902171548254582G -o samples/data/test
-    # # 路中间
-    # # ./scripts/grab_line_pano_info.py 09002200121902031112297132L -o samples/data/test
-    # # 路尽头
-    # # ./scripts/grab_line_pano_info.py 09002200121902031112027092L -o samples/data/test
-    # # 路口
-    # ./scripts/grab_line_pano_info.py 09002200122104201441584797C -o samples/data/test
-    # cat ./samples/data/test/tmp/pids.txt | xargs -I {} ./scripts/download_map_pano.py -t bmap {} -o samples/data/test/pano
-
+    grabber.write_pids(pids)
 
 if __name__ == "__main__":
     main()
