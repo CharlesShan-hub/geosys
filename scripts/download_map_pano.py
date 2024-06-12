@@ -5,13 +5,25 @@ from io import BytesIO
 from functools import partial
 from PIL import Image
 import yaml
-from geosys.maps import (
-    QMAP_PANO_IMG_URL,
-    BMAP_PANO_IMG_URL,
-    GMAP_PANO_IMG_URL,
-    AMAP_PANO_IMG_URL
-)
-from geosys.utils import request_retry
+try:
+    from geosys.maps import (
+        QMAP_PANO_IMG_URL,
+        BMAP_PANO_IMG_URL,
+        GMAP_PANO_IMG_URL,
+        AMAP_PANO_IMG_URL
+    )
+    from geosys.utils import request_retry
+except:
+    import sys
+    import os
+    sys.path.append(os.getcwd())
+    from geosys_copy.maps import (
+        QMAP_PANO_IMG_URL,
+        BMAP_PANO_IMG_URL,
+        GMAP_PANO_IMG_URL,
+        AMAP_PANO_IMG_URL
+    )
+    from geosys_copy.utils import request_retry
 import click
 
 map_types = 'gmap', 'bmap', 'amap', 'qmap'

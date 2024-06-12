@@ -2,8 +2,14 @@
 from pathlib import Path
 from functools import partial
 import click
-from geosys.utils import request_data
+import sys
 import os
+# from geosys.utils import request_data
+try:
+    from geosys.utils import request_data
+except: # For Scons Build
+    sys.path.append(os.getcwd())
+    from geosys_copy.utils import request_data
 import json
 import warnings
 from typing import Any, Optional, Tuple, List
