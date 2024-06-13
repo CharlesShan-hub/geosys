@@ -9,7 +9,7 @@ try:
     from geosys.utils import request_data
 except: # For Scons Build
     sys.path.append(os.getcwd())
-    from geosys_copy.utils import request_data
+    from geosys.utils import request_data
 import json
 import warnings
 from typing import Any, Optional, Tuple, List

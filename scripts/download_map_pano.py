@@ -17,13 +17,13 @@ except:
     import sys
     import os
     sys.path.append(os.getcwd())
-    from geosys_copy.maps import (
+    from geosys.maps import (
         QMAP_PANO_IMG_URL,
         BMAP_PANO_IMG_URL,
         GMAP_PANO_IMG_URL,
         AMAP_PANO_IMG_URL
     )
-    from geosys_copy.utils import request_retry
+    from geosys.utils import request_retry
 import click
 
 map_types = 'gmap', 'bmap', 'amap', 'qmap'

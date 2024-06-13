@@ -57,3 +57,5 @@ for task in tasks:
         for pid in lines:
             env.Execute(f'{python_executable} {SCRIPT2_DIR} -t bmap {pid} -o {OUT_DIR}/pano')
     print(f'🍺 {PID}: Panorama download complete.')
+
+# scons -f ./samples/download_pano_by_lists.py csv-file=./samples/pids.csv
